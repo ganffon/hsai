@@ -39,7 +39,7 @@ nav{
     justify-content: flex-end;
     /* background-color: brown; */
 }
-button{
+/* button{
     width: 80px;
     height: 80px;
     background-color: #2f353d;
@@ -48,20 +48,17 @@ button{
     cursor: pointer;
     margin-right: 100px ;
     border-radius: 5%;
-}
+} */
 button:hover{
     background-color: #434950;
   }
-input{
+/* input{
     width: 150px;
     height: 20px;
-}
-/* .nav-up .nav-up__period{
-    color: white;
-    margin:0 28px
 } */
-label{
+
+/* label{
     color:white;
     margin: 0 20px;
-}
+} */
 
