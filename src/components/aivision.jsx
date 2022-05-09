@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyDatePicker from './datepicker.jsx';
 import '../styles/aivision.css';
 import Grid from '@toast-ui/react-grid';
+import TuiGrid from 'tui-grid';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -18,6 +19,39 @@ import {
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 
+TuiGrid.applyTheme('striped', {
+  // 헤더부분 전체
+  cell: {
+    normal: {
+      border: '#eeeeee',
+      showVerticalBorder: true,
+      showHorizontalBorder: false      
+    },
+    // 그리드 헤더부분
+    header: {
+      background: '#eeeeee',
+      border: '#eeeeee',
+      showVerticalBorder: true,
+      showHorizontalBorder: false      
+    },
+
+    //NO.
+    rowHeader: {
+      background: '#eeeeee',
+      border: '#eeeeee',
+      showVerticalBorder: true,
+      showHorizontalBorder: false
+    },
+
+    evenRow: {
+      background: '#eeeeee',
+    },
+    
+    selectedHeader:{
+      background: '#eeeeee',
+    },
+  }
+});
 
 // import faker from 'faker';
 
@@ -158,15 +192,14 @@ const Aivision = (props) => {
   };
 
   return (
-    <>
+    <main className='aivision'>
       <div className="left">
-        <nav>
+        <nav className='nav'>
           <section className="nav-box">
             <div className="nav-up">
-              <label className="nav-label period">조회기간</label>
-              <MyDatePicker selectDate={new Date().setDate(new Date().getDate() - 7)} />
-              <label className="nav-label period">~</label>
-              <MyDatePicker selectDate={new Date()} />
+              <label className="nav-label period">조회기간 </label>
+              <MyDatePicker className="dtp" selectDate={new Date().setDate(new Date().getDate() - 7)} />
+              <MyDatePicker className="dtp" selectDate={new Date()} />
             </div>
             <div className="nav-down">
               <label className="nav-label">품번</label>
@@ -327,11 +360,15 @@ const Aivision = (props) => {
           <Bar options={options} data={data} />;
         </div>
         <div className="right-down">
-          <Pie data={pieData} />;
-          <Line options={options} data={data} />;
+          <div className='pie-wrapper'>
+            <Pie className='pie' data={pieData} />;
+          </div>
+          <div className='line-wrapper'><Line className='line' options={options} data={LineData} />;</div>
+          
+          
         </div>
       </div>
-    </>
+    </main>
   );
                   }
 export default Aivision;
