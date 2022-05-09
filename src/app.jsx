@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import './styles/app.css';
 // import Login from './components/login.jsx';
-// import Aivision from './components/aivision.jsx';
-import Popup from './components/popup.jsx';
+import Aivision from './components/aivision.jsx';
+// import Test from './components/test.jsx';
+// import Popup from './components/popup.jsx';
 // import MyDatePicker from './components/datepicker.jsx';
 
 class App extends Component {
@@ -10,8 +11,9 @@ class App extends Component {
     return (
       <>
         {/* <Login/> */}
-      {/* <Aivision/> */}
-      <Popup/>
+      <Aivision/>
+      {/* <Test/> */}
+      {/* <Popup/> */}
       
       </>
       // <MyDatePicker/>
@@ -20,3 +22,5 @@ class App extends Component {
 }
 
 export default App;
+
+

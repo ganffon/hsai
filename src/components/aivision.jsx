@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MyDatePicker from './datepicker.jsx';
 import '../styles/aivision.css';
 import Grid from '@toast-ui/react-grid';
@@ -12,9 +12,12 @@ import {
     Legend,
     ArcElement,
     PointElement,
-    LineElement
+    LineElement 
   } from 'chart.js';//Vertical Chart
   import { Bar, Pie, Line } from 'react-chartjs-2'; //Vertical Chart
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
+
 
 // import faker from 'faker';
 
@@ -128,66 +131,207 @@ const LineOptions = {
     ],
   };
 
-const Aivision = (props) => (
+  
 
-    <main>
-        <div className="left">
-            <nav>
-                <section className="nav-box">
-                    <div className="nav-up">
-                        <label className="nav-label period">조회기간</label>                        
-                        <MyDatePicker selectDate={new Date().setDate(new Date().getDate() - 7)}/>
-                        <label className="nav-label period">~</label>
-                        <MyDatePicker selectDate={new Date()}/>
-                    </div>
-                    <div className="nav-down">
-                        <label className="nav-label">품번</label>
-                        <input className="nav-input" type="text" placeholder='품번을 입력하세요'/>
-                        <label className="nav-label">LOT</label>
-                        <input className="nav-input" type="text" placeholder='LOT를 입력하세요'/>
-                    </div>
-                </section>
+  //tui-grid Row data read
+// function testFunc(gridEvent) {
+    // console.log(gridEvent.instance.getRow(gridEvent.rowKey).rowKey);
 
-                <button className="nav-button">조회</button>
-            </nav>
-            <main className="grid"> 
-                <Grid
-                    data={
-                        [
-                            {a:"2022-04-01", b:"TSC5340KS", c:"", d:"", e:"", f:"D10094C01", g:"5", h:"2", i:"1", j:"1", k:"-"},
-                            {a:"2022-04-01", b:"TSC5340KS", c:"", d:"", e:"", f:"D1023B01-09", g:"35", h:"5", i:"3", j:"2", k:"-"},
-                            {a:"2022-04-01", b:"TSC5340KS", c:"", d:"", e:"", f:"D11274B01-07", g:"10", h:"4", i:"1", j:"1", k:"2"}
-                        ]
-                    }
-                    columns={
-                        [
-                            { name:'a', header:"검사일자", align:"center"},
-                            { name:'b', header:"제품명", align:"center"},
-                            { name:'c', header:"폭", align:"center"},
-                            { name:'d', header:"길이", align:"center"},
-                            { name:'e', header:"두께", align:"center"},
-                            { name:'f', header:"LOT", align:"center"},
-                            { name:'g', header:"비전검사기 검출수량", align:'center'},
-                            { name:'h', header:"이물수량(A+B+C)", align:'center'},
-                            { name:'i', header:"도전볼뭉침(A)", align:'center'},
-                            { name:'j', header:"먼지(B)", align:'center'},
-                            { name:'k', header:"기타(C)", align:'center'},
+  // };
 
-                        ]
-                    }
-                />
-            </main>
-        </div>
-        <div className="right">
-            <div className="right-up">
-                <Bar options={options} data={data} />;
+
+const Aivision = (props) => {
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+    console.log("test :::: " + isModalVisible)
+  };
+  
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <>
+      <div className="left">
+        <nav>
+          <section className="nav-box">
+            <div className="nav-up">
+              <label className="nav-label period">조회기간</label>
+              <MyDatePicker selectDate={new Date().setDate(new Date().getDate() - 7)} />
+              <label className="nav-label period">~</label>
+              <MyDatePicker selectDate={new Date()} />
             </div>
-            <div className="right-down">
-                <Pie data={pieData} />;
-                <Line options={options} data={data} />;
+            <div className="nav-down">
+              <label className="nav-label">품번</label>
+              <input
+                className="nav-input"
+                type="text"
+                placeholder="품번을 입력하세요"
+              />
+              <label className="nav-label">LOT</label>
+              <input
+                className="nav-input"
+                type="text"
+                placeholder="LOT를 입력하세요"
+              />
             </div>
-        </div>
-    </main>
-    );
+          </section>
 
+          <button className="nav-button">조회</button>
+        </nav>
+        <main className="grid">
+          <Grid className='grid-one'
+            onDblclick={showModal}
+            data={[
+              {
+                a: "2022-04-01",
+                b: "TSC5340KS",
+                c: "",
+                d: "",
+                e: "",
+                f: "D10094C01",
+                g: "5",
+                h: "2",
+                i: "1",
+                j: "1",
+                k: "-",
+              },
+              {
+                a: "2022-04-01",
+                b: "TSC5340KS",
+                c: "",
+                d: "",
+                e: "",
+                f: "D1023B01-09",
+                g: "35",
+                h: "5",
+                i: "3",
+                j: "2",
+                k: "-",
+              },
+              {
+                a: "2022-04-01",
+                b: "TSC5340KS",
+                c: "",
+                d: "",
+                e: "",
+                f: "D11274B01-07",
+                g: "10",
+                h: "4",
+                i: "1",
+                j: "1",
+                k: "2",
+              },
+            ]}
+            columns={[
+              { name: "a", header: "검사일자", align: "center" },
+              { name: "b", header: "제품명", align: "center" },
+              { name: "c", header: "폭", align: "center" },
+              { name: "d", header: "길이", align: "center" },
+              { name: "e", header: "두께", align: "center" },
+              { name: "f", header: "LOT", align: "center" },
+              { name: "g", header: "비전검사기 검출수량", align: "center" },
+              { name: "h", header: "이물수량(A+B+C)", align: "center" },
+              { name: "i", header: "도전볼뭉침(A)", align: "center" },
+              { name: "j", header: "먼지(B)", align: "center" },
+              { name: "k", header: "기타(C)", align: "center" },
+            ]}
+          />
+          <Modal 
+                  visible={isModalVisible} 
+                  onOk={handleOk} 
+                  onCancel={handleCancel} 
+                  width={1200}
+                  // cancelButtonProps={{style:{display:"none"}}}
+                  footer={null}
+          >
+            <Grid
+              data={[
+                {
+                  a: "2022-04-01",
+                  b: "TSC5340KS",
+                  c: "",
+                  d: "",
+                  e: "",
+                  f: "",
+                  g: "D10094C01",
+                  h: "",
+                  i: "양품",
+                  j: "-",
+                  k: "",
+                  l: "99.99",
+                  m: "",
+                },
+                {
+                  a: "2022-04-01",
+                  b: "TSC5340KS",
+                  c: "",
+                  d: "",
+                  e: "",
+                  f: "",
+                  g: "D1023B01-09",
+                  h: "",
+                  i: "이물",
+                  j: "-",
+                  k: "",
+                  l: "99.99",
+                  m: "",
+                },
+                {
+                  a: "2022-04-01",
+                  b: "TSC5340KS",
+                  c: "",
+                  d: "",
+                  e: "",
+                  f: "",
+                  g: "D11274B01-07",
+                  h: "",
+                  i: "이물",
+                  j: "-",
+                  k: "",
+                  l: "97.07",
+                  m: "",
+                },
+              ]}
+              columns={[
+                { name: "b", header: "제품명", align: "center" },
+                { name: "a", header: "검사일자", align: "center" },
+                { name: "c", header: "폭", align: "center" },
+                { name: "d", header: "길이", align: "center" },
+                { name: "e", header: "두께", align: "center" },
+                { name: "f", header: "제품사양", align: "center" },
+                { name: "g", header: "LOT", align: "center" },
+                { name: "h", header: "사진", align: "center" },
+                { name: "i", header: "이물여부", align: "center" },
+                { name: "j", header: "이물종류", align: "center" },
+                { name: "k", header: "불량구간위치", align: "center" },
+                { name: "l", header: "확률", align: "center" },
+                { name: "m", header: "정답", align: "center" },
+              ]}
+              // rowHeight={50}
+              // heightResizable={true}
+              // rowHeaders={['rowNum']}
+            />
+          </Modal>
+        </main>
+      </div>
+      <div className="right">
+        <div className="right-up">
+          <Bar options={options} data={data} />;
+        </div>
+        <div className="right-down">
+          <Pie data={pieData} />;
+          <Line options={options} data={data} />;
+        </div>
+      </div>
+    </>
+  );
+                  }
 export default Aivision;
