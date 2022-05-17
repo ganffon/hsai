@@ -3,23 +3,34 @@
     height: 100vh;
     display: flex;
 }
-
 .left{
-    width: 50%;
+    width: 55%;
     height: 100%;
 }
-
 .nav {
     width: 100%;
+    height: 15%;
     display: flex;
+    padding: 20px;
+    justify-content: flex-start;    
+    background-color: #e0e0e0;
 }
-
+.design-box{
+    width: 100%;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    display:flex;
+    padding: 20px;
+    border: 0.5px solid rgba(128, 128, 128, 0.459);
+}
 .nav-box{
-    flex: auto;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
 }
-
 .nav-up{
     display: flex;
     width: 100%;
@@ -32,40 +43,76 @@
     height: 50px;
     align-items: center;
 }
-
 .nav-label {
-    margin: 0 10px;
-    width:50px;
+    width:60px;
+    text-align: right;
+    margin-right: 10px;
+    color: black;
 }
-
-.grid{
+.nav-input{
+    border: 1px solid rgba(128, 128, 128, 0.411);
+}
+.nav-input:hover{
+    border: 1px solid rgba(36, 136, 218, 0.705);
+}
+.nav-button-box{
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-left: 20px;
 }
-
+.nav-button{
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 0.5px solid rgba(128, 128, 128, 0.411);
+    background-color: transparent;
+    color: rgba(128, 128, 128, 0.411);
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-button:hover{
+    background-color: rgba(36, 136, 218, 0.705);;
+    transition: 0.5s;
+    color: white;
+    letter-spacing: 2px;
+}
+.grid{
+    width: 100%;
+    height: 85%;
+    border-top: 0.5px solid rgba(128, 128, 128, 0.459);
+}
 .right {
-    width: 40%;
+    width: 45%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #e0e0e0;
+    
 }
-
 .right-up {
     width: 100%;
     height: 50%;
+    border-left: 0.5px solid rgba(128, 128, 128, 0.459);
+    border-bottom: 0.5px solid rgba(128, 128, 128, 0.459);
 }
-
 .right-down{
     width: 100%;
     height: 50%;
     display: flex;
 }
-
 .pie-wrapper {
     width: 50%;
     height: 100%;
+    border-left: 0.5px solid rgba(128, 128, 128, 0.459);
 }
 .line-wrapper {
     width: 50%;
     height: 100%;
+    border-left: 0.5px solid rgba(128, 128, 128, 0.459);
 }
