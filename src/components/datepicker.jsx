@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-// import 'react-datepicker/dist/react-datepicker.css'
-import {ko} from 'date-fns/esm/locale'
-import { DatePicker } from 'antd';
+import React, { useState } from "react";
+import { DatePicker, Space } from "antd";
+import moment from "moment";
 
 const MyDatePicker = (props) => {
+  const { RangePicker } = DatePicker;
+  const dateFormat = "YYYY년 MM월 DD일";
 
-    const [startDate, setStartDate] = useState(props.selectDate);
-
+  const sendDate = (picDate) => {
+    props.setLastDate(picDate[0])
+    props.setCurrentDate(picDate[1])
+  };
 
   return (
-        <DatePicker
-            dateFormat="yyyy년 MM월 dd일"
-            locale={ko}
-            selected={startDate}            
-            onChange={(date) => setStartDate(date)}
-            maxDate = {new Date()}
-        />
+    <Space direction="vertical" size={12}>
+      <RangePicker
+        onChange={sendDate}
+        format={dateFormat}
+        defaultValue={[
+          moment(props.lastDate, dateFormat),
+          moment(props.currentDate, dateFormat),
+        ]}
+      />
+    </Space>
   );
-    
 };
 export default MyDatePicker;
