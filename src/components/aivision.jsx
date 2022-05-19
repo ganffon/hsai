@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MyDatePicker from "./datepicker.jsx";
 import "../styles/aivision.css";
 import Grid from "@toast-ui/react-grid";
@@ -206,8 +206,7 @@ const LineData = {
   }
   
   const [mainGrid, setMainGrid] = useState([]); // Main Grid Data State
-  const [mainGridHeaders, setMainGridHeaders] = useState(mainFixedColumns); // Main Grid Headers State  
-  
+  const [mainGridHeaders, setMainGridHeaders] = useState(mainFixedColumns); // Main Grid Headers State    
   
   // Main 에서 조회 Btn 클릭 시 호출
   const ClickBtn = async () => {
@@ -245,33 +244,168 @@ const LineData = {
 
   // Main 에서 Dbl_Click시 Popup 호출
   const showModal = async () => {
-    let res = await axios.get("url");
-    if (!res) {
-      setPopupGridHeaders(popupGridHeaders)
-    } else {
-      setPopupGridHeaders(res)
-    }
+    // let res = await axios.get("url");
+    // if (!res) {
+    //   setPopupGridHeaders(popupGridHeaders)
+    // } else {
+    //   setPopupGridHeaders(res)
+    // }
 
-    let res2 = await axios.get("url");
-    if (!res) {
-      setPopupGrid(popupGrid)
-    } else {
-      setPopupGrid(res2)
-      setIsModalVisible(true);
-    }    
+    // let res2 = await axios.get("url");
+    // if (!res) {
+    //   setPopupGrid(popupGrid)
+    // } else {
+    //   setPopupGrid(res2)
+    //   setIsModalVisible(true);
+    // }    
+    setIsModalVisible(true);
   };
 
   // Popup 에서 종료
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const handleCancel = () => setIsModalVisible(false);
+
+
+ //Popup 에서 그리드 행 클릭시 우측 input 박스로 데이터 출력
+  const formRef = useRef();
+
+  const onClickPopup = (e) => {
+    const test = e.instance.getRow(e.rowKey)
+    
+    Object.keys(test).forEach(key => formRef.current[key].value = test[key]);
+
+    console.log(test)
+  }
+  //Popup 에서 저장 버튼 클릭시 호출
+  const [selectValue, setSelectValue] = useState("");
+  const onSavePopup = (e) => {
+    e.preventDefault()
+    console.log(selectValue)
+  }
+
+  // Popup 에서 select 변경 시 호출
+  const onChangeSelect = (e) => {
+    console.log(e.target.value)
+    setSelectValue(e.target.value)
+  }
+
+  const popupTestData = [
+    {
+      a: "2022-04-01",
+      b: "TSC5340KS",
+      c: "",
+      d: "",
+      e: "",
+      f: "",
+      g: "D10094C01",
+      h: "",
+      i: "양품",
+      j: "-",
+      k: "",
+      l: "99.99",
+      m: "",
+    },
+    {
+      a: "2022-04-01",
+      b: "TSC5340KS",
+      c: "",
+      d: "",
+      e: "",
+      f: "",
+      g: "D1023B01-09",
+      h: "",
+      i: "이물",
+      j: "-",
+      k: "",
+      l: "99.99",
+      m: "",
+    },
+    {
+      a: "2022-04-01",
+      b: "TSC5340KS",
+      c: "",
+      d: "",
+      e: "",
+      f: "",
+      g: "D11274B01-07",
+      h: "",
+      i: "이물",
+      j: "-",
+      k: "",
+      l: "97.07",
+      m: "",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-04-01",
+    },
+    {
+      a: "2022-05",
+    },
+    {
+      a: "2022-05",
+    },
+    {
+      a: "2022-05",
+    },
+    {
+      a: "2022-05",
+    },
+    {
+      a: "2022-05",
+    },
+    {
+      a: "2022-05",
+    },
+  ]
 
   return (
     <main className="aivision">
       <div className="left">
         <nav className="nav">
-          {/* <label className="nav-label">{lastDate}</label> 
-          <p /> */}
           <div className="design-box">
             <section className="nav-box">
               <div className="nav-up">              
@@ -313,8 +447,8 @@ const LineData = {
             onDblclick={showModal}
             rowHeaders={['rowNum']}
             rowHeight={50}
-            bodyHeight="fitToParent"
-            // data={maingrid}
+            width= "auto"
+            // bodyHeight="fitToParent"
             data={[
               {
                 a: "2022-04-01",
@@ -362,75 +496,82 @@ const LineData = {
             visible={isModalVisible}
             onCancel={handleCancel}
             width={1500}
+            height={300}
             footer={null}
+            style={{ top: 50}}
+            bodyStyle={{height:870}}
+            closable={false}     
           >
-            <Grid
-              data={[
-                {
-                  a: "2022-04-01",
-                  b: "TSC5340KS",
-                  c: "",
-                  d: "",
-                  e: "",
-                  f: "",
-                  g: "D10094C01",
-                  h: "",
-                  i: "양품",
-                  j: "-",
-                  k: "",
-                  l: "99.99",
-                  m: "",
-                },
-                {
-                  a: "2022-04-01",
-                  b: "TSC5340KS",
-                  c: "",
-                  d: "",
-                  e: "",
-                  f: "",
-                  g: "D1023B01-09",
-                  h: "",
-                  i: "이물",
-                  j: "-",
-                  k: "",
-                  l: "99.99",
-                  m: "",
-                },
-                {
-                  a: "2022-04-01",
-                  b: "TSC5340KS",
-                  c: "",
-                  d: "",
-                  e: "",
-                  f: "",
-                  g: "D11274B01-07",
-                  h: "",
-                  i: "이물",
-                  j: "-",
-                  k: "",
-                  l: "97.07",
-                  m: "",
-                },
-              ]}
-              columns={[
-                { name: "b", header: "제품명", align: "center" },
-                { name: "a", header: "검사일자", align: "center" },
-                { name: "c", header: "폭", align: "center" },
-                { name: "d", header: "길이", align: "center" },
-                { name: "e", header: "두께", align: "center" },
-                { name: "f", header: "제품사양", align: "center" },
-                { name: "g", header: "LOT", align: "center" },
-                { name: "h", header: "사진", align: "center" },
-                { name: "i", header: "이물여부", align: "center" },
-                { name: "j", header: "이물종류", align: "center" },
-                { name: "k", header: "불량구간위치", align: "center" },
-                { name: "l", header: "확률", align: "center" },
-                { name: "m", header: "정답", align: "center" },
-              ]}
-              // rowHeight={50}
-              // heightResizable={true}
-              // rowHeaders={['rowNum']}
-            />
+            <div className="modal-box__main">
+              <div className="modal-box__left">
+                <Grid
+                  scrollY = {true}
+                  onClick={onClickPopup}
+                  data={popupTestData}
+                  columns={[
+                    { name: "b", header: "제품명", align: "center" },
+                    { name: "a", header: "검사일자", align: "center" },
+                    { name: "c", header: "폭", align: "center" },
+                    { name: "d", header: "길이", align: "center" },
+                    { name: "e", header: "두께", align: "center" },
+                    { name: "f", header: "제품사양", align: "center" },
+                    { name: "g", header: "LOT", align: "center" },
+                    { name: "h", header: "사진", align: "center" },
+                    { name: "i", header: "AI예측", align: "center" },
+                    { name: "j", header: "이물종류", align: "center" },
+                    { name: "k", header: "불량구간위치", align: "center" },
+                    { name: "l", header: "확률", align: "center" },
+                    { name: "m", header: "정답", align: "center" },
+                  ]}
+                />
+              </div> 
+              <form ref={formRef} className="modal-box__right">                
+
+                  <label className="modal-label" name="b">제품명</label>
+                  <input className="modal-input" disabled={true} name="b"/>
+
+                  <label className="modal-label">검사일자</label>
+                  <input className="modal-input" disabled={true} name="a"/>
+
+                  <label className="modal-label">폭</label>
+                  <input className="modal-input" disabled={true} name="c"/>
+
+                  <label className="modal-label">길이</label>
+                  <input className="modal-input" disabled={true} name="d"/>
+
+                  <label className="modal-label">두께</label>
+                  <input className="modal-input" disabled={true} name="e"/>
+
+                  <label className="modal-label">제품사양</label>
+                  <input className="modal-input" disabled={true} name="f"/>
+
+                  <label className="modal-label">LOT</label>
+                  <input className="modal-input" disabled={true} name="g"/>
+
+                  <label className="modal-label">사진</label>
+                  <input className="modal-input" disabled={true} name="h"/>
+
+                  <label className="modal-label">AI예측</label>
+                  <input className="modal-input" disabled={true} name="i"/>
+
+                  <label className="modal-label">이물종류</label>
+                  <input className="modal-input" disabled={true} name="j"/>
+
+                  <label className="modal-label">불량구간위치</label>
+                  <input className="modal-input" disabled={true} name="k"/>
+
+                  <label className="modal-label">확률</label>
+                  <input className="modal-input" disabled={true} name="l"/>
+
+                  <label className="modal-label">정답</label>
+                  <select className="modal-select" name="select" onChange={onChangeSelect}>
+                    <option value="ok" name="selectOpiton">양품</option>
+                    <option value="ng" name="selectOpiton">이물</option>
+                  </select>
+
+                  <button className="modal-button" onClick={onSavePopup}>저장</button>
+              </form>
+            </div>
           </Modal>
         </main>
       </div>
